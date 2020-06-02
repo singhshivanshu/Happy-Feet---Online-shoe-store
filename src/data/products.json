@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Men Black AIR ZOOM VOMERO 14 Running Shoes",
+    "id": "1",
+    "img": "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/11045524/2020/1/23/d223cb29-1cb1-4eb9-b1b0-9f24b85aa50a1579774783408-Nike-Men-Black-AIR-ZOOM-VOMERO-14-Running-Shoes-847157977478-2.jpg",
+    "rating": "4.1",
+    "original_price": "11995",
+    "discount": 30,
+    "color": "black",
+    "type": "running",
+    "brand": "nike"
+  },
+  {
+    "name": "Men White Air Max Excee Sneakers",
+    "id": "2",
+    "img": "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/11045686/2020/1/23/4d8b3251-b492-435b-9c8f-cd0318c9edfd1579762577274-Nike-Air-Max-Excee-7861579762575994-2.jpg",
+    "rating": "3.7",
+    "original_price": "7995",
+    "discount": 25,
+    "color": "white",
+    "type": "casual",
+    "brand": "nike"
+  },
+  {
+    "name": "Men Brown Formal Oxford Shoes",
+    "id": "3",
+    "img": "#",
+    "rating": "3.5",
+    "original_price": "2799",
+    "discount": 30,
+    "color": "brown",
+    "type": "formal",
+    "brand": "invictus"
+  },
+  {
+    "name": "Men Teal Blue Stargon 1.0 Running Shoes",
+    "id": "4",
+    "img": "#",
+    "rating": "4.0",
+    "original_price": "4299",
+    "discount": 10,
+    "color": "blue",
+    "type": "running",
+    "brand": "adidas"
+  },
+  {
+    "name": "Unisex Red 3MC Sneakers",
+    "id": "5",
+    "img": "#",
+    "rating": "3.8",
+    "original_price": "5999",
+    "discount": 25,
+    "color": "red",
+    "type": "casual",
+    "brand": "adidas"
+  },
+  {
+    "name": "Men Grey Woven Design Drift Ace LP Running Shoes",
+    "id": "6",
+    "img": "#",
+    "rating": "3.5",
+    "original_price": "4999",
+    "discount": 20,
+    "color": "grey",
+    "type": "running",
+    "brand": "reebok"
+  },
+  {
+    "name": "Men White Smash Leather Sneakers",
+    "id": "7",
+    "img": "#",
+    "rating": "4.0",
+    "original_price": "4499",
+    "discount": 50,
+    "color": "white",
+    "type": "casual",
+    "brand": "puma"
+  },
+  {
+    "name": "Men Maroon Agile t1 NM IDP Running Shoes",
+    "id": "8",
+    "img": "#",
+    "rating": "3.7",
+    "original_price": "3999",
+    "discount": 30,
+    "color": "red",
+    "type": "running",
+    "brand": "puma"
+  },
+  {
+    "name": "Men Black Textured Leather Formal Derbys",
+    "id": "9",
+    "img": "#",
+    "rating": "3.9",
+    "original_price": "4499",
+    "discount": 55,
+    "color": "black",
+    "type": "formal",
+    "brand": "van heusen"
+  },
+  {
+    "name": "Men Brown Solid Leather Formal Oxfords",
+    "id": "10",
+    "img": "#",
+    "rating": "4.4",
+    "original_price": "3999",
+    "discount": 0,
+    "color": "brown",
+    "type": "formal",
+    "brand": "van heusen"
+  }
+]
