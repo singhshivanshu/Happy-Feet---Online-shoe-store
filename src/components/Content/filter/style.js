@@ -8,3 +8,18 @@ export const useStyleInput = makeStyles((theme) => ({
     },
   },
 }));
+
+export const useStyleFormControl = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
+  formControl: {
+    margin: theme.spacing(3),
+  },
+}));
+
+export const useStyleCard = makeStyles({
+  root: {
+    width: 345,
+  },
+});
