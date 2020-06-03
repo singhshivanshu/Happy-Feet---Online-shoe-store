@@ -4,7 +4,7 @@ export const useStyleInput = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "25ch",
+      width: "17ch",
     },
   },
 }));
@@ -21,5 +21,15 @@ export const useStyleFormControl = makeStyles((theme) => ({
 export const useStyleCard = makeStyles({
   root: {
     width: 345,
+    height: "fit-content"
   },
 });
+
+export const useStylePrice = makeStyles((theme) => ({
+    root: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '12ch',
+      },
+    },
+  }));

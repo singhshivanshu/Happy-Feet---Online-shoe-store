@@ -4,7 +4,7 @@ import { useStyleInput } from "./style";
 import axios from "axios";
 // import Result from "../result";
 import Grid from "@material-ui/core/Grid";
-import {useStyleCard} from "./style"
+import { useStyleCard } from "./style";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -17,12 +17,12 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
-import {useStyleFormControl} from "./style"
+import { useStyleFormControl } from "./style";
+// Price filter
+import { useStylePrice } from "./style";
 
 function Filter() {
-
   const textfield = useStyleInput();
 
   const [searchValue, setSearchValue] = useState("");
@@ -35,20 +35,29 @@ function Filter() {
     red: false,
     blue: false,
     grey: false,
-    brown: false
+    brown: false,
   });
   const [arr, setArr] = useState([]);
-  
-  const handleChange = event => {
+
+  const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
     arr.indexOf(event.target.name) < 0
       ? setArr([...arr, event.target.name])
-      : setArr(arr.filter(item => item !== event.target.name));
+      : setArr(arr.filter((item) => item !== event.target.name));
   };
 
   const { black, white, red, blue, grey, brown } = state;
-  
-   // checkbox
+
+  // checkbox
+
+  // price filter
+
+  const [priceFilterValue, setPriceFilterValue] = useState({
+    minPrice: "",
+    maxPrice: "",
+  });
+
+  // price filter
 
   const onSearchHandler = () => {
     axios
@@ -59,27 +68,28 @@ function Filter() {
       .catch((error) => console.log(error));
   };
 
-  //   const conditionHandler = () => {
-  //       if(searchValue.length > 2) {
-  //           onSearchHandler();
-  //       }
-  //   }
-
   useEffect(() => {
     onSearchHandler();
   }, [searchValue]);
 
-  console.log(searchValue);
-  console.log(data);
-
   // For cards..
-
-
 
   const classesCard = useStyleCard();
   const classesFormControl = useStyleFormControl();
+  const classesPrice = useStylePrice();
 
   // For cards..
+
+  //  console.log(arr)
+
+  let onFilter = {
+    byColour: [...arr],
+    byBrand: searchValue,
+  };
+  //  console.log(onFilter.byColour)
+  //  console.log(onFilter.byBrand)
+  console.log(priceFilterValue.minPrice);
+  console.log(priceFilterValue.maxPrice);
 
   return (
     <Grid container direction="row" alignItems="stretch">
@@ -87,66 +97,129 @@ function Filter() {
         <h3>Filters</h3>
         <form className={textfield.root} noValidate autoComplete="off">
           <TextField
-            id="filled-basic"
+            id="outlined-basic"
             label="Search Brands..."
-            variant="filled"
+            variant="outlined"
             valaue={searchValue}
             onChange={(e) => setSearchValue(e.target.value.toLocaleLowerCase())}
           />
         </form>
+        <form className={classesPrice.root} noValidate autoComplete="off">
+          <div>
+            <h3>PRICE</h3>
+          </div>
+          <div>
+            <TextField
+              id="outlined-number"
+              label="Min-price"
+              type="number"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={priceFilterValue.minPrice}
+              onChange={(e) =>
+                setPriceFilterValue({
+                  minPrice: e.target.value,
+                })
+              }
+            />
+          </div>
+          <div>
+            <TextField
+              id="outlined-number"
+              label="Max-price"
+              type="number"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={priceFilterValue.maxPrice}
+              onChange={(e) =>
+                setPriceFilterValue({
+                  maxPrice: e.target.value,
+                })
+              }
+            />
+          </div>
+        </form>
         <div className={classesFormControl.root}>
-      <FormControl component="fieldset" className={classesFormControl.formControl}>
-        <FormLabel component="legend">COLOR</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox checked={black} onChange={handleChange} name="black" />
-            }
-            label="black"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={white} onChange={handleChange} name="white" />
-            }
-            label="white"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={red} onChange={handleChange} name="red" />
-            }
-            label="red"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={blue} onChange={handleChange} name="blue" />
-            }
-            label="blue"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={grey} onChange={handleChange} name="grey" />
-            }
-            label="grey"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={brown} onChange={handleChange} name="brown" />
-            }
-            label="brown"
-          />
-        </FormGroup>
-        <FormHelperText>Be careful</FormHelperText>
-      </FormControl>
-    </div>
-        
+          <FormControl
+            component="fieldset"
+            className={classesFormControl.formControl}
+          >
+            <FormLabel component="legend">COLOR</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={black}
+                    onChange={handleChange}
+                    name="black"
+                  />
+                }
+                label="black"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={white}
+                    onChange={handleChange}
+                    name="white"
+                  />
+                }
+                label="white"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox checked={red} onChange={handleChange} name="red" />
+                }
+                label="red"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={blue}
+                    onChange={handleChange}
+                    name="blue"
+                  />
+                }
+                label="blue"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={grey}
+                    onChange={handleChange}
+                    name="grey"
+                  />
+                }
+                label="grey"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={brown}
+                    onChange={handleChange}
+                    name="brown"
+                  />
+                }
+                label="brown"
+              />
+            </FormGroup>
+          </FormControl>
+        </div>
       </Grid>
 
-      <Grid direction="column" sm={9} style={{display: 'contents'}}>
+      <Grid direction="column" sm={9} style={{ display: "contents" }}>
         {searchValue.length < 3 ? (
           <React.Fragment>
             {data.map((product) => {
               return (
-                <Card className={classesCard.root} style={{margin: '1%', padding: '10px'}} >
+                <Card
+                  className={classesCard.root}
+                  style={{ margin: "1%", padding: "10px" }}
+                >
                   <CardActionArea>
                     <CardMedia
                       component="img"
@@ -156,7 +229,12 @@ function Filter() {
                       title={product.name}
                     />
                     <CardContent>
-                      <Typography style={{textTransform: "capitalize"}} gutterBottom variant="h5" component="h2">
+                      <Typography
+                        style={{ textTransform: "capitalize" }}
+                        gutterBottom
+                        variant="h5"
+                        component="h2"
+                      >
                         {product.brand}
                       </Typography>
                       <Typography
@@ -171,9 +249,10 @@ function Filter() {
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    <Button variant="contained" color="primary" href={`${product.id}/payment`}>
                       BUY
                     </Button>
+
                     <Button size="small" color="primary">
                       {product.rating}
                     </Button>
@@ -188,7 +267,10 @@ function Filter() {
               .filter((product) => product.brand === searchValue)
               .map((product) => {
                 return (
-                  <Card className={classesCard.root} style={{margin: '1%', padding: '10px'}}>
+                  <Card
+                    className={classesCard.root}
+                    style={{ margin: "1%", padding: "10px" }}
+                  >
                     <CardActionArea>
                       <CardMedia
                         component="img"
@@ -198,7 +280,12 @@ function Filter() {
                         title={product.name}
                       />
                       <CardContent>
-                        <Typography style={{textTransform: "capitalize"}} gutterBottom variant="h5" component="h2">
+                        <Typography
+                          style={{ textTransform: "capitalize" }}
+                          gutterBottom
+                          variant="h5"
+                          component="h2"
+                        >
                           {product.brand}
                         </Typography>
                         <Typography
@@ -213,9 +300,14 @@ function Filter() {
                       </CardContent>
                     </CardActionArea>
                     <CardActions>
-                      <Button size="small" color="primary">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href="/payment"
+                      >
                         BUY
                       </Button>
+
                       <Button size="small" color="primary">
                         {product.rating}
                       </Button>
