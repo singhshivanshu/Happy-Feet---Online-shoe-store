@@ -48,47 +48,68 @@ function Filter() {
   // checkbox
 
   // Radio box
-  const [radioValue, setRadioValue] = useState('low')
-
+  const [radioValue, setRadioValue] = useState("");
 
   //Radio box
 
-  
   const onSearchHandler = () => {
-      axios
+    axios
       .get("./data/products.json")
       .then((data) => {
-          setData(data.data);
-        })
-        .catch((error) => console.log(error));
-    };
-    
-    useEffect(() => {
-        onSearchHandler();
-    }, [searchValue]);
-    
-    
-    // price filter
-  
-    const [priceFilterValue, setPriceFilterValue] = useState({
-      minPrice: "",
-      maxPrice: "",
+        setData(data.data);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const sortProducts = (value) => {
+    axios.get("./data/products.json").then((response) => {
+      let sortedData = response.data;
+
+      if (value === "low") {
+        sortedData = sortedData.sort(function (a, b) {
+          let keyA = a.discount_price;
+          let keyB = b.discount_price;
+
+          return keyA - keyB;
+        });
+      } else {
+        sortedData = sortedData.sort(function (a, b) {
+          let keyA = a.discount_price;
+          let keyB = b.discount_price;
+
+          return keyB - keyA;
+        });
+      }
+
+      setData(sortedData);
     });
-  
-    // price filter
-     
+  };
+
+
+  useEffect(() => {
+    onSearchHandler();
+  }, [searchValue]);
+
+  // price filter
+
+  const [priceFilterValue, setPriceFilterValue] = useState({
+    minPrice: "",
+    maxPrice: "",
+  });
+
+  // price filter
+
   let onFilter = {
-      byColour: [...arr],
-      byBrand: searchValue,
-    };
-    //  console.log(onFilter.byColour)
-    //  console.log(onFilter.byBrand)
-    
-    
-    const classesCard = useStyleCard();
-    const classesFormControl = useStyleFormControl();
-    const classesPrice = useStylePrice();
-    const textfield = useStyleInput();
+    byColour: [...arr],
+    byBrand: searchValue,
+  };
+  //  console.log(onFilter.byColour)
+  //  console.log(onFilter.byBrand)
+
+  const classesCard = useStyleCard();
+  const classesFormControl = useStyleFormControl();
+  const classesPrice = useStylePrice();
+  const textfield = useStyleInput();
   return (
     <div className="filter-main-section">
       <div className="filter-sec">
@@ -212,7 +233,14 @@ function Filter() {
           <h4>Sort by</h4>
           <FormControl component="fieldset">
             <FormLabel component="legend">Relevance</FormLabel>
-            <RadioGroup name="sorting" value={radioValue} onChange={(e) => setRadioValue(e.target.value)}>
+            <RadioGroup
+              name="sorting"
+              value={radioValue}
+              onChange={(e) => {
+                sortProducts(e.target.value);
+                setRadioValue(e.target.value);
+              }}
+            >
               <FormControlLabel
                 value="low"
                 control={<Radio />}
