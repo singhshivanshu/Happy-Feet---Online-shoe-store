@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyleInput = makeStyles((theme) => ({
   root: {
     "& > *": {
-      margin: theme.spacing(0,1,2,3),
+      margin: theme.spacing(0,0,2,3),
       width: "17ch",
     },
   },

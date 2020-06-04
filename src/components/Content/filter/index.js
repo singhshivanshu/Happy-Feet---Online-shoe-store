@@ -22,7 +22,7 @@ import { useStyleFormControl } from "./style";
 // Price filter
 import { useStylePrice } from "./style";
 function Filter() {
-  const textfield = useStyleInput();
+  
 
   const [searchValue, setSearchValue] = useState("");
   const [data, setData] = useState([]);
@@ -76,6 +76,7 @@ function Filter() {
   const classesCard = useStyleCard();
   const classesFormControl = useStyleFormControl();
   const classesPrice = useStylePrice();
+  const textfield = useStyleInput();
 
   // For cards..
 

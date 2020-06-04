@@ -33,5 +33,28 @@ code {
   border-top: 1px solid #edebef;
 }
 
+@media only screen and (min-width: 320px) and (max-width: 479px){
+  .result-sec{
+    width: 100%;
+  }
+  .filter-sec {
+    width: 100%;
+    border: none;
+  }
+ }
+
+ @media only screen and (min-width: 768px) and (max-width: 991px){
+  .result-sec{
+    width: 100%;
+  }
+  #outlined-basic {
+    width: 12ch;
+  }
+  .filter-sec {
+    width: 100%;
+    border-right: 1px solid #edebef;
+  }
+ }
+
 
 
