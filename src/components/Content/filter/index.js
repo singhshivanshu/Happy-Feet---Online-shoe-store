@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import { useStyleInput } from "./style";
 import axios from "axios";
-// import Result from "../result";
-import Grid from "@material-ui/core/Grid";
 import { useStyleCard } from "./style";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -12,6 +10,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Chip from "@material-ui/core/Chip";
+import GradeIcon from "@material-ui/icons/Grade";
 // Checkbox section
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -21,7 +21,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { useStyleFormControl } from "./style";
 // Price filter
 import { useStylePrice } from "./style";
-
 function Filter() {
   const textfield = useStyleInput();
 
@@ -92,10 +91,14 @@ function Filter() {
   console.log(priceFilterValue.maxPrice);
 
   return (
-    <Grid container direction="row" alignItems="stretch">
-      <Grid sm={2}>
-        <h3>Filters</h3>
+    <div className="filter-main-section">
+      <div className="filter-sec">
+        <div style ={{marginLeft: "24px", letterSpacing:"2px"}}>
+          <h2>Filters</h2>
+        </div>
+        <hr/>
         <form className={textfield.root} noValidate autoComplete="off">
+          <h4 style={{color: "grey"}}>BRANDS</h4>
           <TextField
             id="outlined-basic"
             label="Search Brands..."
@@ -104,45 +107,41 @@ function Filter() {
             onChange={(e) => setSearchValue(e.target.value.toLocaleLowerCase())}
           />
         </form>
+        <hr/>
         <form className={classesPrice.root} noValidate autoComplete="off">
-          <div>
-            <h3>PRICE</h3>
-          </div>
-          <div>
-            <TextField
-              id="outlined-number"
-              label="Min-price"
-              type="number"
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={priceFilterValue.minPrice}
-              onChange={(e) =>
-                setPriceFilterValue({
-                  minPrice: e.target.value,
-                })
-              }
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-number"
-              label="Max-price"
-              type="number"
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={priceFilterValue.maxPrice}
-              onChange={(e) =>
-                setPriceFilterValue({
-                  maxPrice: e.target.value,
-                })
-              }
-            />
-          </div>
+          <TextField
+            id="outlined-number"
+            label="Min-price"
+            type="number"
+            variant="outlined"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={priceFilterValue.minPrice}
+            onChange={(e) =>
+              setPriceFilterValue({
+                minPrice: e.target.value,
+              })
+            }
+          />
+
+          <TextField
+            id="outlined-number"
+            label="Max-price"
+            type="number"
+            variant="outlined"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={priceFilterValue.maxPrice}
+            onChange={(e) =>
+              setPriceFilterValue({
+                maxPrice: e.target.value,
+              })
+            }
+          />
         </form>
+        <hr/>
         <div className={classesFormControl.root}>
           <FormControl
             component="fieldset"
@@ -209,9 +208,9 @@ function Filter() {
             </FormGroup>
           </FormControl>
         </div>
-      </Grid>
+      </div>
 
-      <Grid direction="column" sm={9} style={{ display: "contents" }}>
+      <div className="result-sec">
         {searchValue.length < 3 ? (
           <React.Fragment>
             {data.map((product) => {
@@ -248,14 +247,21 @@ function Filter() {
                       </Typography>
                     </CardContent>
                   </CardActionArea>
-                  <CardActions>
-                    <Button variant="contained" color="primary" href={`${product.id}/payment`}>
+                  <CardActions style={{ justifyContent: "space-between" }}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={`${product.id}/payment`}
+                    >
                       BUY
                     </Button>
 
-                    <Button size="small" color="primary">
-                      {product.rating}
-                    </Button>
+                    <Chip
+                      label={product.rating}
+                      icon={<GradeIcon fontSize="small" />}
+                      color="secondary"
+                      style={{ backgroundColor: "#4CAF50" }}
+                    />
                   </CardActions>
                 </Card>
               );
@@ -299,26 +305,29 @@ function Filter() {
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    <CardActions>
+                    <CardActions style={{ justifyContent: "space-between" }}>
                       <Button
                         variant="contained"
                         color="primary"
-                        href="/payment"
+                        href={`${product.id}/payment`}
                       >
                         BUY
                       </Button>
 
-                      <Button size="small" color="primary">
-                        {product.rating}
-                      </Button>
+                      <Chip
+                        label={product.rating}
+                        icon={<GradeIcon fontSize="small" />}
+                        color="secondary"
+                        style={{ backgroundColor: "#4CAF50" }}
+                      />
                     </CardActions>
                   </Card>
                 );
               })}
           </React.Fragment>
         )}
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 }
 export default Filter;

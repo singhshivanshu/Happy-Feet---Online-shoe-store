@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyleInput = makeStyles((theme) => ({
   root: {
     "& > *": {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0,1,2,3),
       width: "17ch",
     },
   },
@@ -28,7 +28,7 @@ export const useStyleCard = makeStyles({
 export const useStylePrice = makeStyles((theme) => ({
     root: {
       '& .MuiTextField-root': {
-        margin: theme.spacing(1),
+        margin: theme.spacing(2, 0, 2, 3),
         width: '12ch',
       },
     },
