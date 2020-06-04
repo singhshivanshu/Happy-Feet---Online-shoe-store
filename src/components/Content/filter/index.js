@@ -22,35 +22,12 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import { useStylePrice } from "./style";
 function Filter() {
+
+
+  //search by brand //
   const [searchValue, setSearchValue] = useState("");
   const [data, setData] = useState([]);
-
-  // checkbox
-  const [state, setState] = useState({
-    black: false,
-    white: false,
-    red: false,
-    blue: false,
-    grey: false,
-    brown: false,
-  });
-  const [arr, setArr] = useState([]);
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-    arr.indexOf(event.target.name) < 0
-      ? setArr([...arr, event.target.name])
-      : setArr(arr.filter((item) => item !== event.target.name));
-  };
-
-  const { black, white, red, blue, grey, brown } = state;
-
-  // checkbox
-
-  // Radio box
-  const [radioValue, setRadioValue] = useState("");
-
-  //Radio box
+  // search by brand
 
   const onSearchHandler = () => {
     axios
@@ -60,6 +37,50 @@ function Filter() {
       })
       .catch((error) => console.log(error));
   };
+
+  // price filter
+  
+  const [priceFilterValue, setPriceFilterValue] = useState({
+    minPrice: "",
+    maxPrice: "",
+  });
+  
+  // price filter
+  
+  // checkbox
+  const [state, setState] = useState({
+    black: false,
+    white: false,
+    red: false,
+    blue: false,
+    grey: false,
+    brown: false,
+});
+  const [arr, setArr] = useState([]);
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+    arr.indexOf(event.target.name) < 0
+      ? setArr([...arr, event.target.name])
+      : setArr(arr.filter((item) => item !== event.target.name));
+  };
+
+//   useEffect(() => {
+//     setData(data && [...data, data.filter(product => arr.includes(product.color))])
+//     console.log(data)
+//   },[arr])
+
+  console.log(data)
+
+  const { black, white, red, blue, grey, brown } = state;
+  
+
+  // checkbox
+
+  // Radio box
+  const [radioValue, setRadioValue] = useState("");
+
+ 
 
   const sortProducts = (value) => {
     axios.get("./data/products.json").then((response) => {
@@ -85,31 +106,26 @@ function Filter() {
     });
   };
 
+   //Radio box
 
   useEffect(() => {
     onSearchHandler();
   }, [searchValue]);
 
-  // price filter
-
-  const [priceFilterValue, setPriceFilterValue] = useState({
-    minPrice: "",
-    maxPrice: "",
-  });
-
-  // price filter
 
   let onFilter = {
     byColour: [...arr],
     byBrand: searchValue,
   };
-  //  console.log(onFilter.byColour)
-  //  console.log(onFilter.byBrand)
 
+  // styling function expressions
   const classesCard = useStyleCard();
   const classesFormControl = useStyleFormControl();
   const classesPrice = useStylePrice();
   const textfield = useStyleInput();
+
+
+  
   return (
     <div className="filter-main-section">
       <div className="filter-sec">
