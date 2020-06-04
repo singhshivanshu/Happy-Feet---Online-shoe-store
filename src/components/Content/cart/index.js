@@ -72,7 +72,7 @@ function Cart() {
           </Card>
         ))
       ) : (
-        <MuiAlert style={{width: "100%"}} severity="info">OOPS!!! You are yet to buy anything, Please have look at products, We assure you it's worth giving time.</MuiAlert>
+        <MuiAlert style={{width: "100%"}} severity="info">OOPS!!! You are yet to buy anything, Please have a look at products, We assure you it's worth giving time.</MuiAlert>
       )}
     </div>
   );

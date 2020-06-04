@@ -12,14 +12,14 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
 import GradeIcon from "@material-ui/icons/Grade";
-// Checkbox section
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useStyleFormControl } from "./style";
-// Price filter
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 import { useStylePrice } from "./style";
 function Filter() {
   const [searchValue, setSearchValue] = useState("");
@@ -47,48 +47,48 @@ function Filter() {
 
   // checkbox
 
-  // price filter
+  // Radio box
+  const [radioValue, setRadioValue] = useState('low')
 
-  const [priceFilterValue, setPriceFilterValue] = useState({
-    minPrice: "",
-    maxPrice: "",
-  });
 
-  // price filter
+  //Radio box
 
+  
   const onSearchHandler = () => {
-    axios
+      axios
       .get("./data/products.json")
       .then((data) => {
-        setData(data.data);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    onSearchHandler();
-  }, [searchValue]);
-
-  // For cards..
-
-  const classesCard = useStyleCard();
-  const classesFormControl = useStyleFormControl();
-  const classesPrice = useStylePrice();
-  const textfield = useStyleInput();
-
-  // For cards..
-
-  //  console.log(arr)
-
+          setData(data.data);
+        })
+        .catch((error) => console.log(error));
+    };
+    
+    useEffect(() => {
+        onSearchHandler();
+    }, [searchValue]);
+    
+    
+    // price filter
+  
+    const [priceFilterValue, setPriceFilterValue] = useState({
+      minPrice: "",
+      maxPrice: "",
+    });
+  
+    // price filter
+     
   let onFilter = {
-    byColour: [...arr],
-    byBrand: searchValue,
-  };
-  //  console.log(onFilter.byColour)
-  //  console.log(onFilter.byBrand)
-  console.log(priceFilterValue.minPrice);
-  console.log(priceFilterValue.maxPrice);
-
+      byColour: [...arr],
+      byBrand: searchValue,
+    };
+    //  console.log(onFilter.byColour)
+    //  console.log(onFilter.byBrand)
+    
+    
+    const classesCard = useStyleCard();
+    const classesFormControl = useStyleFormControl();
+    const classesPrice = useStylePrice();
+    const textfield = useStyleInput();
   return (
     <div className="filter-main-section">
       <div className="filter-sec">
@@ -207,6 +207,25 @@ function Filter() {
             </FormGroup>
           </FormControl>
         </div>
+        <hr />
+        <div className="sort-by-sec">
+          <h4>Sort by</h4>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Relevance</FormLabel>
+            <RadioGroup name="sorting" value={radioValue} onChange={(e) => setRadioValue(e.target.value)}>
+              <FormControlLabel
+                value="low"
+                control={<Radio />}
+                label="Price low to high"
+              />
+              <FormControlLabel
+                value="high"
+                control={<Radio />}
+                label="Price high to low"
+              />
+            </RadioGroup>
+          </FormControl>
+        </div>
       </div>
 
       <div className="result-sec">
@@ -304,7 +323,8 @@ function Filter() {
                         >
                           <strong>{product.name}</strong>
                           <hr />
-                          <strong>Rs.{product.discount_price}</strong>&nbsp;&nbsp;
+                          <strong>Rs.{product.discount_price}</strong>
+                          &nbsp;&nbsp;
                           <del>Rs.{product.original_price}</del>&nbsp;
                           <span className="discount_percent">
                             ({product.discount}%)
