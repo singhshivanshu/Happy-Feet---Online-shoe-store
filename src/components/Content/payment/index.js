@@ -48,7 +48,7 @@ function Payment(props) {
   return (
     <React.Fragment>
       {status === true && (
-        <MuiAlert severity="success">This is a success message!</MuiAlert>
+        <MuiAlert severity="success">Congrats!!! You have successfully purchased your favouraite MY FEET product. Please visit MY SHOES to check your item.</MuiAlert>
       )}
 
       <div style={{ textAlign: "-webkit-center" }}>

@@ -6,6 +6,7 @@
     "rating": "4.1",
     "original_price": "11995",
     "discount": 30,
+    "discount_price": "8396",
     "color": "black",
     "type": "running",
     "brand": "nike"
@@ -17,6 +18,7 @@
     "rating": "3.7",
     "original_price": "7995",
     "discount": 25,
+    "discount_price": "5997",
     "color": "white",
     "type": "casual",
     "brand": "nike"
@@ -28,6 +30,7 @@
     "rating": "3.5",
     "original_price": "2799",
     "discount": 30,
+    "discount_price": "1960",
     "color": "brown",
     "type": "formal",
     "brand": "invictus"
@@ -39,6 +42,7 @@
     "rating": "4.0",
     "original_price": "4299",
     "discount": 10,
+    "discount_price": "3870",
     "color": "blue",
     "type": "running",
     "brand": "adidas"
@@ -50,6 +54,7 @@
     "rating": "3.8",
     "original_price": "5999",
     "discount": 25,
+    "discount_price": "4499",
     "color": "red",
     "type": "casual",
     "brand": "adidas"
@@ -61,6 +66,7 @@
     "rating": "3.5",
     "original_price": "4999",
     "discount": 20,
+    "discount_price": "3999",
     "color": "grey",
     "type": "running",
     "brand": "reebok"
@@ -72,6 +78,7 @@
     "rating": "4.0",
     "original_price": "4499",
     "discount": 50,
+    "discount_price": "2249",
     "color": "white",
     "type": "casual",
     "brand": "puma"
@@ -83,6 +90,7 @@
     "rating": "3.7",
     "original_price": "3999",
     "discount": 30,
+    "discount_price": "2799",
     "color": "red",
     "type": "running",
     "brand": "puma"
@@ -94,6 +102,7 @@
     "rating": "3.9",
     "original_price": "5895",
     "discount": 70,
+    "discount_price": "4126",
     "color": "black",
     "type": "formal",
     "brand": "red tape"
@@ -105,6 +114,7 @@
     "rating": "4.4",
     "original_price": "3999",
     "discount": 0,
+    "discount_price": "3999",
     "color": "brown",
     "type": "formal",
     "brand": "van heusen"

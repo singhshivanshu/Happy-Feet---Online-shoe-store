@@ -11,7 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+/* Filter component */
 .filter-main-section {
   margin-top: 1rem;
   display: flex;
@@ -55,6 +55,16 @@ code {
     border-right: 1px solid #edebef;
   }
  }
+ /* Filter component */
+
+
+ /* product card discount % */
+.discount_percent {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: brown;
+}
+
+ /* product card discount % */
 
 
 

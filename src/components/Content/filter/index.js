@@ -22,8 +22,6 @@ import { useStyleFormControl } from "./style";
 // Price filter
 import { useStylePrice } from "./style";
 function Filter() {
-  
-
   const [searchValue, setSearchValue] = useState("");
   const [data, setData] = useState([]);
 
@@ -94,12 +92,12 @@ function Filter() {
   return (
     <div className="filter-main-section">
       <div className="filter-sec">
-        <div style ={{marginLeft: "24px", letterSpacing:"2px"}}>
+        <div style={{ marginLeft: "24px", letterSpacing: "2px" }}>
           <h2>Filters</h2>
         </div>
-        <hr/>
+        <hr />
         <form className={textfield.root} noValidate autoComplete="off">
-          <h4 style={{color: "grey"}}>BRANDS</h4>
+          <h4 style={{ color: "grey" }}>BRANDS</h4>
           <TextField
             id="outlined-basic"
             label="Search Brands..."
@@ -108,7 +106,7 @@ function Filter() {
             onChange={(e) => setSearchValue(e.target.value.toLocaleLowerCase())}
           />
         </form>
-        <hr/>
+        <hr />
         <form className={classesPrice.root} noValidate autoComplete="off">
           <TextField
             id="outlined-number"
@@ -142,7 +140,7 @@ function Filter() {
             }
           />
         </form>
-        <hr/>
+        <hr />
         <div className={classesFormControl.root}>
           <FormControl
             component="fieldset"
@@ -242,9 +240,13 @@ function Filter() {
                         color="textSecondary"
                         component="p"
                       >
-                        {product.name}
+                        <strong>{product.name}</strong>
                         <hr />
-                        Rs.{product.original_price}
+                        <strong>Rs.{product.discount_price}</strong>&nbsp;&nbsp;
+                        <del>Rs.{product.original_price}</del>&nbsp;
+                        <span className="discount_percent">
+                          ({product.discount}%)
+                        </span>
                       </Typography>
                     </CardContent>
                   </CardActionArea>
@@ -300,9 +302,13 @@ function Filter() {
                           color="textSecondary"
                           component="p"
                         >
-                          {product.name}
+                          <strong>{product.name}</strong>
                           <hr />
-                          Rs.{product.original_price}
+                          <strong>Rs.{product.discount_price}</strong>&nbsp;&nbsp;
+                          <del>Rs.{product.original_price}</del>&nbsp;
+                          <span className="discount_percent">
+                            ({product.discount}%)
+                          </span>
                         </Typography>
                       </CardContent>
                     </CardActionArea>
