@@ -64,13 +64,22 @@ function Filter() {
       ? setArr([...arr, event.target.name])
       : setArr(arr.filter((item) => item !== event.target.name));
   };
+  const [color, setColor] = useState([])
+  
+  useEffect(() => {
+    setColor(data && data.filter(product => arr.includes(product.color)))
+  },[arr.length])
 
-//   useEffect(() => {
-//     setData(data && [...data, data.filter(product => arr.includes(product.color))])
-//     console.log(data)
-//   },[arr])
+  console.log("checkbox",arr)
+  console.log("data",color)
 
-  console.log(data)
+//  useEffect(() => {
+//    if(color) {
+//      setData(color)
+//    }
+//  },[arr.length])
+  
+  
 
   const { black, white, red, blue, grey, brown } = state;
   
@@ -275,7 +284,7 @@ function Filter() {
       <div className="result-sec">
         {searchValue.length < 3 ? (
           <React.Fragment>
-            {data.map((product) => {
+            {color.map((product) => {
               return (
                 <Card
                   className={classesCard.root}
@@ -335,7 +344,7 @@ function Filter() {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {data
+            {color
               .filter((product) => product.brand === searchValue)
               .map((product) => {
                 return (
