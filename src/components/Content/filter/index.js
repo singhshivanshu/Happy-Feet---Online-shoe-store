@@ -2,16 +2,6 @@ import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import { useStyleInput } from "./style";
 import axios from "axios";
-import { useStyleCard } from "./style";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Chip from "@material-ui/core/Chip";
-import GradeIcon from "@material-ui/icons/Grade";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -20,13 +10,19 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { useStyleFormControl } from "./style";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import { useStylePrice } from "./style";
+import Displaycard from "../displaycard";
+import Typography from "@material-ui/core/Typography";
+import Slider from "@material-ui/core/Slider";
+import { useStylesSlider } from "./style";
+
 function Filter() {
-
-
   //search by brand //
   const [searchValue, setSearchValue] = useState("");
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    onSearchHandler();
+  }, [searchValue]);
   // search by brand
 
   const onSearchHandler = () => {
@@ -38,15 +34,6 @@ function Filter() {
       .catch((error) => console.log(error));
   };
 
-  // price filter
-  
-  const [priceFilterValue, setPriceFilterValue] = useState({
-    minPrice: "",
-    maxPrice: "",
-  });
-  
-  // price filter
-  
   // checkbox
   const [state, setState] = useState({
     black: false,
@@ -55,7 +42,7 @@ function Filter() {
     blue: false,
     grey: false,
     brown: false,
-});
+  });
   const [arr, setArr] = useState([]);
 
   const handleChange = (event) => {
@@ -64,32 +51,17 @@ function Filter() {
       ? setArr([...arr, event.target.name])
       : setArr(arr.filter((item) => item !== event.target.name));
   };
-  const [color, setColor] = useState([])
-  
+  const [color, setColor] = useState([]);
+
   useEffect(() => {
-    setColor(data && data.filter(product => arr.includes(product.color)))
-  },[arr.length])
-
-  console.log("checkbox",arr)
-  console.log("data",color)
-
-//  useEffect(() => {
-//    if(color) {
-//      setData(color)
-//    }
-//  },[arr.length])
-  
-  
+    setColor(data && data.filter((product) => arr.includes(product.color)));
+  }, [arr.length]);
 
   const { black, white, red, blue, grey, brown } = state;
-  
-
   // checkbox
 
   // Radio box
   const [radioValue, setRadioValue] = useState("");
-
- 
 
   const sortProducts = (value) => {
     axios.get("./data/products.json").then((response) => {
@@ -114,27 +86,25 @@ function Filter() {
       setData(sortedData);
     });
   };
+  //Radio box
 
-   //Radio box
+  // price slider filter
 
-  useEffect(() => {
-    onSearchHandler();
-  }, [searchValue]);
+  const [sliderValue, setSliderValue] = useState([1500, 10000]);
 
-
-  let onFilter = {
-    byColour: [...arr],
-    byBrand: searchValue,
+  const handleSliderChange = (event, newValue) => {
+    setSliderValue(newValue);
   };
+  console.log(sliderValue)
+
+
+  // price slider filter
 
   // styling function expressions
-  const classesCard = useStyleCard();
   const classesFormControl = useStyleFormControl();
-  const classesPrice = useStylePrice();
+  const classesSlider = useStylesSlider();
   const textfield = useStyleInput();
 
-
-  
   return (
     <div className="filter-main-section">
       <div className="filter-sec">
@@ -153,39 +123,24 @@ function Filter() {
           />
         </form>
         <hr />
-        <form className={classesPrice.root} noValidate autoComplete="off">
-          <TextField
-            id="outlined-number"
-            label="Min-price"
-            type="number"
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={priceFilterValue.minPrice}
-            onChange={(e) =>
-              setPriceFilterValue({
-                minPrice: e.target.value,
-              })
-            }
+        <div className={classesSlider.root}>
+          <Typography
+            variant="h6"
+            style={{ color: "grey" }}
+            id="range-slider"
+            gutterBottom
+          >
+            PRICE RANGE
+          </Typography>
+          <Slider
+            min={1500}
+            max={10000}
+            value={sliderValue}
+            onChange={handleSliderChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
           />
-
-          <TextField
-            id="outlined-number"
-            label="Max-price"
-            type="number"
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={priceFilterValue.maxPrice}
-            onChange={(e) =>
-              setPriceFilterValue({
-                maxPrice: e.target.value,
-              })
-            }
-          />
-        </form>
+        </div>
         <hr />
         <div className={classesFormControl.root}>
           <FormControl
@@ -197,67 +152,77 @@ function Filter() {
               <FormControlLabel
                 control={
                   <Checkbox
+                    size="small"
                     checked={black}
                     onChange={handleChange}
                     name="black"
                   />
                 }
-                label="black"
+                label="Black"
               />
               <FormControlLabel
                 control={
                   <Checkbox
+                    size="small"
                     checked={white}
                     onChange={handleChange}
                     name="white"
                   />
                 }
-                label="white"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={red} onChange={handleChange} name="red" />
-                }
-                label="red"
+                label="White"
               />
               <FormControlLabel
                 control={
                   <Checkbox
+                    size="small"
+                    checked={red}
+                    onChange={handleChange}
+                    name="red"
+                  />
+                }
+                label="Red"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    size="small"
                     checked={blue}
                     onChange={handleChange}
                     name="blue"
                   />
                 }
-                label="blue"
+                label="Blue"
               />
               <FormControlLabel
                 control={
                   <Checkbox
+                    size="small"
                     checked={grey}
                     onChange={handleChange}
                     name="grey"
                   />
                 }
-                label="grey"
+                label="Grey"
               />
               <FormControlLabel
                 control={
                   <Checkbox
+                    size="small"
                     checked={brown}
                     onChange={handleChange}
                     name="brown"
                   />
                 }
-                label="brown"
+                label="Brown"
               />
             </FormGroup>
           </FormControl>
         </div>
         <hr />
         <div className="sort-by-sec">
-          <h4>Sort by</h4>
+          <h4 style={{ color: "grey" }}>SORT BY PRICE</h4>
           <FormControl component="fieldset">
-            <FormLabel component="legend">Relevance</FormLabel>
+            <FormLabel component="legend">RELEVANCE</FormLabel>
             <RadioGroup
               name="sorting"
               value={radioValue}
@@ -268,13 +233,13 @@ function Filter() {
             >
               <FormControlLabel
                 value="low"
-                control={<Radio />}
-                label="Price low to high"
+                control={<Radio size="small" />}
+                label="low to high"
               />
               <FormControlLabel
                 value="high"
-                control={<Radio />}
-                label="Price high to low"
+                control={<Radio size="small" />}
+                label="high to low"
               />
             </RadioGroup>
           </FormControl>
@@ -282,128 +247,41 @@ function Filter() {
       </div>
 
       <div className="result-sec">
-        {searchValue.length < 3 ? (
+        {color.length !== 0 ? (
           <React.Fragment>
-            {color.map((product) => {
-              return (
-                <Card
-                  className={classesCard.root}
-                  style={{ margin: "1%", padding: "10px" }}
-                >
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      alt={product.name}
-                      height="300"
-                      image={product.img}
-                      title={product.name}
-                    />
-                    <CardContent>
-                      <Typography
-                        style={{ textTransform: "capitalize" }}
-                        gutterBottom
-                        variant="h5"
-                        component="h2"
-                      >
-                        {product.brand}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        <strong>{product.name}</strong>
-                        <hr />
-                        <strong>Rs.{product.discount_price}</strong>&nbsp;&nbsp;
-                        <del>Rs.{product.original_price}</del>&nbsp;
-                        <span className="discount_percent">
-                          ({product.discount}%)
-                        </span>
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions style={{ justifyContent: "space-between" }}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={`${product.id}/payment`}
-                    >
-                      BUY
-                    </Button>
-
-                    <Chip
-                      label={product.rating}
-                      icon={<GradeIcon fontSize="small" />}
-                      color="secondary"
-                      style={{ backgroundColor: "#4CAF50" }}
-                    />
-                  </CardActions>
-                </Card>
-              );
-            })}
+            {searchValue.length < 3 ? (
+              <React.Fragment>
+                {color.map((product) => {
+                  return <Displaycard product={product} />;
+                })}
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                {color
+                  .filter((product) => product.brand === searchValue)
+                  .map((product) => {
+                    return <Displaycard product={product} />;
+                  })}
+              </React.Fragment>
+            )}
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {color
-              .filter((product) => product.brand === searchValue)
-              .map((product) => {
-                return (
-                  <Card
-                    className={classesCard.root}
-                    style={{ margin: "1%", padding: "10px" }}
-                  >
-                    <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        alt={product.name}
-                        height="300"
-                        image={product.img}
-                        title={product.name}
-                      />
-                      <CardContent>
-                        <Typography
-                          style={{ textTransform: "capitalize" }}
-                          gutterBottom
-                          variant="h5"
-                          component="h2"
-                        >
-                          {product.brand}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
-                          <strong>{product.name}</strong>
-                          <hr />
-                          <strong>Rs.{product.discount_price}</strong>
-                          &nbsp;&nbsp;
-                          <del>Rs.{product.original_price}</del>&nbsp;
-                          <span className="discount_percent">
-                            ({product.discount}%)
-                          </span>
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                    <CardActions style={{ justifyContent: "space-between" }}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={`${product.id}/payment`}
-                      >
-                        BUY
-                      </Button>
-
-                      <Chip
-                        label={product.rating}
-                        icon={<GradeIcon fontSize="small" />}
-                        color="secondary"
-                        style={{ backgroundColor: "#4CAF50" }}
-                      />
-                    </CardActions>
-                  </Card>
-                );
-              })}
+            {searchValue.length < 3 ? (
+              <React.Fragment>
+                {data.map((product) => {
+                  return <Displaycard product={product} />;
+                })}
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                {data
+                  .filter((product) => product.brand === searchValue)
+                  .map((product) => {
+                    return <Displaycard product={product} />;
+                  })}
+              </React.Fragment>
+            )}
           </React.Fragment>
         )}
       </div>

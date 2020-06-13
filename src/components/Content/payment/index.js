@@ -43,12 +43,22 @@ function Payment(props) {
   };
 
   //////
-  console.log(status);
+
+  const changeNameHandler = (e) => {
+    const re = /[a-z\s]/i;
+    if (re.test(e.key)) {
+    } else {
+      e.preventDefault();
+    }
+  };
 
   return (
     <React.Fragment>
       {status === true && (
-        <MuiAlert severity="success">Congrats!!! You have successfully purchased your favouraite MY FEET product. Please visit MY SHOES to check your item.</MuiAlert>
+        <MuiAlert severity="success">
+          Congrats!!! You have successfully purchased your favouraite HAPPY FEET
+          product. Please visit MY SHOES to check your item.
+        </MuiAlert>
       )}
 
       <div style={{ textAlign: "-webkit-center" }}>
@@ -80,6 +90,7 @@ function Payment(props) {
               onFocus={(e) => setFocus(e.target.name)}
             />
             <TextField
+              type="text"
               id="outlined-name"
               label="Card Name"
               className={classes.cardName}
@@ -88,6 +99,7 @@ function Payment(props) {
               }}
               variant="outlined"
               value={name}
+              onKeyPress={(e) => changeNameHandler(e)}
               onChange={(e) => setName(e.target.value)}
               onFocus={(e) => setFocus(e.target.name)}
             />
@@ -98,7 +110,7 @@ function Payment(props) {
               placeholder="MMYY"
               className={classes.cardDate}
               onInput={(e) => {
-                e.target.value = Math.max(0, parseInt(e.target.value, 10))
+                e.target.value = Math.max(parseInt(e.target.value, 10))
                   .toString()
                   .slice(0, 4);
               }}
@@ -116,7 +128,7 @@ function Payment(props) {
               type="number"
               className={classes.cardCVV}
               onInput={(e) => {
-                e.target.value = Math.max(0, parseInt(e.target.value, 10))
+                e.target.value = Math.max(parseInt(e.target.value, 10))
                   .toString()
                   .slice(0, 3);
               }}

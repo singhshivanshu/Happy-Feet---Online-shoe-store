@@ -18,13 +18,6 @@ export const useStyleFormControl = makeStyles((theme) => ({
   },
 }));
 
-export const useStyleCard = makeStyles({
-  root: {
-    width: 345,
-    height: "fit-content"
-  },
-});
-
 export const useStylePrice = makeStyles((theme) => ({
     root: {
       '& .MuiTextField-root': {
@@ -35,4 +28,9 @@ export const useStylePrice = makeStyles((theme) => ({
   }));
 
 
-  
+  export const useStylesSlider = makeStyles({
+    root: {
+      width: 150,
+      margin: "3ch"
+    }
+  });
