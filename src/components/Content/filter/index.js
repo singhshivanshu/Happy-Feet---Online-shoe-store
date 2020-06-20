@@ -17,23 +17,12 @@ import { useStylesSlider } from "./style";
 
 function Filter() {
   //search by brand //
-  const [searchValue, setSearchValue] = useState("");
+  const [brandName, setBrandName] = useState("");
   const [data, setData] = useState([]);
-
-  useEffect(() => {
-    onSearchHandler();
-  }, [searchValue]);
-  // search by brand
-
-  const onSearchHandler = () => {
-    axios
-      .get("./data/products.json")
-      .then((data) => {
-        setData(data.data);
-      })
-      .catch((error) => console.log(error));
-  };
-
+  const [sliderValue, setSliderValue] = useState([1500, 10000]);
+  const [color, setColor] = useState([]);
+  
+    
   // checkbox
   const [state, setState] = useState({
     black: false,
@@ -51,17 +40,28 @@ function Filter() {
       ? setArr([...arr, event.target.name])
       : setArr(arr.filter((item) => item !== event.target.name));
   };
-  const [color, setColor] = useState([]);
 
-  useEffect(() => {
-    setColor(data && data.filter((product) => arr.includes(product.color)));
-  }, [arr.length]);
+
 
   const { black, white, red, blue, grey, brown } = state;
   // checkbox
+  console.log("color",color)
+
+   // price slider filter
+
+   
+
+   const handleSliderChange = (event, newValue) => {
+     setSliderValue(newValue);
+   
+   };
+   console.log(sliderValue)
+   // price slider filter
+
+
 
   // Radio box
-  const [radioValue, setRadioValue] = useState("");
+  const [radioValue, setRadioValue] = useState("low");
 
   const sortProducts = (value) => {
     axios.get("./data/products.json").then((response) => {
@@ -82,23 +82,20 @@ function Filter() {
           return keyB - keyA;
         });
       }
-
-      setData(sortedData);
+      // filtering data by price
+      setData(sortedData.filter(data => data.discount_price <= sliderValue[1] && data.discount_price >= sliderValue[0] ));
+      
+      // filtering data by color
+      setColor(data && data.filter((product) => arr.includes(product.color)));
     });
   };
   //Radio box
 
-  // price slider filter
+  useEffect(() => {
+    sortProducts(radioValue);
+  }, [sliderValue,arr.length]);
 
-  const [sliderValue, setSliderValue] = useState([1500, 10000]);
-
-  const handleSliderChange = (event, newValue) => {
-    setSliderValue(newValue);
-  };
-  console.log(sliderValue)
-
-
-  // price slider filter
+ 
 
   // styling function expressions
   const classesFormControl = useStyleFormControl();
@@ -118,8 +115,8 @@ function Filter() {
             id="outlined-basic"
             label="Search Brands..."
             variant="outlined"
-            valaue={searchValue}
-            onChange={(e) => setSearchValue(e.target.value.toLocaleLowerCase())}
+            valaue={brandName}
+            onChange={(e) => setBrandName(e.target.value.toLocaleLowerCase())}
           />
         </form>
         <hr />
@@ -249,7 +246,7 @@ function Filter() {
       <div className="result-sec">
         {color.length !== 0 ? (
           <React.Fragment>
-            {searchValue.length < 3 ? (
+            {brandName.length < 3 ? (
               <React.Fragment>
                 {color.map((product) => {
                   return <Displaycard product={product} />;
@@ -258,7 +255,7 @@ function Filter() {
             ) : (
               <React.Fragment>
                 {color
-                  .filter((product) => product.brand === searchValue)
+                  .filter((product) => product.brand === brandName)
                   .map((product) => {
                     return <Displaycard product={product} />;
                   })}
@@ -267,7 +264,7 @@ function Filter() {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {searchValue.length < 3 ? (
+            {brandName.length < 3 ? (
               <React.Fragment>
                 {data.map((product) => {
                   return <Displaycard product={product} />;
@@ -276,7 +273,7 @@ function Filter() {
             ) : (
               <React.Fragment>
                 {data
-                  .filter((product) => product.brand === searchValue)
+                  .filter((product) => product.brand === brandName)
                   .map((product) => {
                     return <Displaycard product={product} />;
                   })}
