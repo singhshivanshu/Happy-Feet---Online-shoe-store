@@ -45,7 +45,6 @@ function Filter() {
 
   const { black, white, red, blue, grey, brown } = state;
   // checkbox
-  console.log("color",color)
 
    // price slider filter
 
@@ -55,7 +54,7 @@ function Filter() {
      setSliderValue(newValue);
    
    };
-   console.log(sliderValue)
+   
    // price slider filter
 
 
@@ -92,8 +91,10 @@ function Filter() {
   //Radio box
 
   useEffect(() => {
+    
     sortProducts(radioValue);
-  }, [sliderValue,arr.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sliderValue, arr.length, radioValue]);
 
  
 

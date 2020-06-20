@@ -29,7 +29,7 @@ function Payment(props) {
       );
       setProduct(a[0]);
     });
-  }, []);
+  }, [props.match.params.id]);
 
   // Adding data to session storage
 
